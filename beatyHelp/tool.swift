@@ -65,12 +65,4 @@ func getColorFromDictionary(dictionaryName:String) -> UIColor{
     return UIColor(red: CGFloat(colorArray[0] as NSNumber)/255, green: CGFloat(colorArray[1] as NSNumber)/255, blue: CGFloat(colorArray[2] as NSNumber)/255, alpha: CGFloat(colorArray[3] as NSNumber))
 }
 
-//-(UIColor*)getColorFromDictionary:(NSString*)dictionaryName
-//{
-//    NSDictionary *userInfo = [self getDictionary:@"colorList"];
-//    NSMutableArray *colorArray = [[NSMutableArray alloc] init];
-//    colorArray = [userInfo objectForKey:dictionaryName];
-//    return [UIColor colorWithRed:([colorArray[0] floatValue]/255.0) green:([colorArray[1] floatValue]/255.0) blue:([colorArray[2] floatValue]/255.0) alpha:[colorArray[3] floatValue]];
-//}
-
 

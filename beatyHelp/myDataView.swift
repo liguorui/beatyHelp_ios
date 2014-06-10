@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import QuartzCore
 
+
 func myDataViewDraw(controller:UIViewController){
     var scrollView:UIScrollView! //创建滚动并设置尺寸
     
@@ -154,6 +155,7 @@ func getMiddleList(scrollView:UIScrollView){
     var topValueBg:UIView! //创建图片并设置尺寸
     var topLabelTitle:UILabel! //创建顶部title
     var topLabelMore:UILabel! //创建顶部more
+    var middleValueBgArray:UIView[]
     
     var ListNum = 4
     
@@ -204,51 +206,40 @@ func getMiddleList(scrollView:UIScrollView){
         topLabelMore = UILabel(frame: CGRectMake(260, 8, 30, 12))
         var content = NSMutableAttributedString(string: String("更多"))
         var contentRange = NSRange(location: 0, length: content.length)
-//        content.addAttribute(name: NSUnderlineStyleAttributeName, value: NSNumber.numberWithInteger( NSUnderlineStyle.StyleSingle), range: contentRange)
-        
-        
-//        func addAttribute(name: String!, value: AnyObject!, range: NSRange)
-        
-//        func addAttribute(name: String!, value: AnyObject!, range: NSRange)
+//        var getStyle = NSUnderlineStyle.StyleSingle
+        var getValue = NSNumber(integer:2)
+        content.addAttribute(NSUnderlineStyleAttributeName, value: getValue, range: contentRange)
+        topLabelMore.attributedText = content
+        topLabelMore.font = UIFont(name:"Arial",size:12)
+        topLabelMore.shadowColor = UIColor(red:0, green:0, blue: 0, alpha:0.45)
+        topLabelMore.shadowOffset = CGSizeMake(0, 0.5)
+        topLabelMore.textColor = UIColor.whiteColor()
+        topValueBg.addSubview(topLabelMore)
         return topLabelMore
     }()
+    
+    middleValueBgArray = {
+        () -> UIView[] in
+        var middleValueBgArray: UIView[] = []
+        for i in 0..ListNum {
+            var middleValueBg = UIView(frame:CGRectMake( 0, CGFloat(28*i), 300, 28))
+            var middleLayer = middleListBg.layer
+            if i%2 == 1{
+                middleLayer.backgroundColor = getColorFromDictionary("greyf3").CGColor
+            }else{
+                middleLayer.backgroundColor = getColorFromDictionary("greyd8").CGColor
+            }
+            if i == ListNum-1 {
+                var middleMaskPath = UIBezierPath(roundedRect: middleValueBg.bounds, byRoundingCorners: UIRectCorner.BottomLeft|UIRectCorner.BottomRight, cornerRadii:CGSizeMake(5, 5))
+                var middleMaskLayer = CAShapeLayer()
+                middleMaskLayer.frame = middleLayer.bounds
+                middleMaskLayer.path = middleMaskPath.CGPath
+                middleValueBg.layer.mask = middleMaskLayer
+            }
+            middleValueBgArray.insert(middleValueBg, atIndex: i)
+            middleListBg.addSubview(middleValueBg)
+        }
+        return middleValueBgArray
+    }()
 }
-
-
-//-(void)getMiddleList{
-//    UILabel *topLabelMore= [[UILabel alloc] initWithFrame:CGRectMake(260, 8, 30, 12)];
-//    NSMutableAttributedString *content = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"更多"]];
-//    NSRange contentRange = {0,[content length]};
-//    [content addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:contentRange];
-//    [topLabelMore setAttributedText:content];
-//    [topLabelMore setFont:[UIFont fontWithName:@"Arial" size:12]];
-//    [topLabelMore setShadowColor:[UIColor colorWithRed:(0.0/255.0) green:(0.0/255.0) blue:(0.0/255.0) alpha:0.45]];
-//    [topLabelMore setShadowOffset:CGSizeMake(0, 0.5)];
-//    [topLabelMore setTextColor:[UIColor whiteColor]];
-//    [topValueBg addSubview:topLabelMore];
-//    [middleListBg addSubview:topValueBg];
-//    
-//    
-//    for (int i = 1; i < ListNum; i++) {
-//        //创建图片并设置尺寸
-//        UIView *middleValueBg = [[UIView alloc]initWithFrame:CGRectMake(0, 28*i, 300, 28)];
-//        //读取实例的layer属性
-//        CALayer *middleLayer = [middleValueBg layer];
-//        //设置红色为控件背景
-//        if(i%2==1){
-//            [middleLayer setBackgroundColor:[[getTool getColorFromDictionary:@"greyf3"] CGColor]];
-//        }else{
-//            [middleLayer setBackgroundColor:[[getTool getColorFromDictionary:@"greyd8"] CGColor]];
-//        }
-//        if(i==ListNum-1){
-//            //设置只有底部的两个圆角
-//            UIBezierPath *middleMaskPath = [UIBezierPath bezierPathWithRoundedRect:middleValueBg.bounds byRoundingCorners:UIRectCornerBottomLeft|UIRectCornerBottomRight cornerRadii:CGSizeMake(5, 5)];
-//            CAShapeLayer *middleMaskLayer = [[CAShapeLayer alloc] init];
-//            middleMaskLayer.frame = middleLayer.bounds;
-//            middleMaskLayer.path = middleMaskPath.CGPath;
-//            middleValueBg.layer.mask = middleMaskLayer;
-//        }
-//        [middleListBg addSubview:middleValueBg];
-//    }
-//}
 
