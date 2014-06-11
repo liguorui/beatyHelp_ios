@@ -17,15 +17,18 @@ func myDataViewDraw(controller:UIViewController){
     scrollView = {
         () -> UIScrollView in
         scrollView = UIScrollView(frame:CGRectMake(0, 128, 320, 317))
+        // 设置可滚动的区域
+        scrollView.contentSize = CGSizeMake(320, 335)
         controller.view.addSubview(scrollView)
         return scrollView
     }()
     
     // 为controller添加baseView
-    getUIBaseView(controller)
+    GetUIBaseView(_controller: controller)
     getMainViewTop(controller,2)
     getMyDataMiddle(scrollView)
     getMiddleList(scrollView)
+    getBtn(scrollView)
     getFootBar(controller,3)
 }
 
@@ -221,9 +224,9 @@ func getMiddleList(scrollView:UIScrollView){
     middleValueBgArray = {
         () -> UIView[] in
         var middleValueBgArray: UIView[] = []
-        for i in 0..ListNum {
+        for i in 1..ListNum {
             var middleValueBg = UIView(frame:CGRectMake( 0, CGFloat(28*i), 300, 28))
-            var middleLayer = middleListBg.layer
+            var middleLayer = middleValueBg.layer
             if i%2 == 1{
                 middleLayer.backgroundColor = getColorFromDictionary("greyf3").CGColor
             }else{
@@ -236,10 +239,37 @@ func getMiddleList(scrollView:UIScrollView){
                 middleMaskLayer.path = middleMaskPath.CGPath
                 middleValueBg.layer.mask = middleMaskLayer
             }
-            middleValueBgArray.insert(middleValueBg, atIndex: i)
+            middleValueBgArray.insert(middleValueBg, atIndex: i-1)
             middleListBg.addSubview(middleValueBg)
         }
         return middleValueBgArray
     }()
 }
 
+
+func getBtn(scrollView:UIScrollView){
+    var btnArray: UIButton[]
+    btnArray = {
+        () -> UIButton[] in
+        var btnArray: UIButton[] = []
+        var btnNum = 3
+        var btnNameArray = ["历史消息","设  置","登  出"]
+        for i in 0..btnNum{
+            var button = UIButton(frame:CGRectMake(7, CGFloat(205+40*i), 306, 36))
+            var img:UIImage
+            if i == btnNum-1{
+                img = UIImage(named: "blackBtn")
+            }else{
+                img = UIImage(named: "blueBtn")
+            }
+            img = img.stretchableImageWithLeftCapWidth(8, topCapHeight:0)
+            img.accessibilityFrame = CGRectMake(0, 0, 304, 36)
+            button.setBackgroundImage(img, forState: UIControlState.Normal)
+            button.setTitle(btnNameArray[i], forState: UIControlState.Normal)
+            button.titleLabel.font = UIFont(name:"Arial",size:12)
+            btnArray.insert(button, atIndex: i)
+            scrollView.addSubview(button)
+        }
+        return btnArray
+        }()
+}

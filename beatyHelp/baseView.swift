@@ -14,9 +14,11 @@ import UIKit
 *
 *  @param view 需要添加的UIView
 */
-func getUIBaseView(controller:UIViewController){
-    // 为背景平铺背景图
-    controller.view.backgroundColor = UIColor(patternImage: UIImage(named:"bgMini"))
+class GetUIBaseView{
+    init(_controller:UIViewController){
+        // 为背景平铺背景图
+        _controller.view.backgroundColor = UIColor(patternImage: UIImage(named:"bgMini"))
+    }
 }
 
 func getFootBar(controller:UIViewController,index:Int){
@@ -73,3 +75,42 @@ func getFootBar(controller:UIViewController,index:Int){
         }()
 }
 
+class GetHeadBar{
+    var headBg:UIImageView! // 顶部框体包括背景图
+    var titleLabel:UILabel! // 顶部标题
+    var backBtn:UIButton! // 顶部返回按钮
+    
+    init(_controller:UIViewController,_title:String){
+        setHeadBg(_controller)
+        setTitleLabel(_title)
+        setBackBtn(_controller)
+    }
+    
+    func setHeadBg(controller:UIViewController){
+        // 创建框体并设置尺寸
+        headBg = UIImageView(frame:CGRectMake(0,20,320,40))
+        //根据图片名，确定图片引用以及拉伸
+        headBg.image = UIImage(named:"headBg").stretchableImageWithLeftCapWidth(4, topCapHeight:0)
+        // 将圆图添加到UIView上
+        controller.view.addSubview(headBg)
+    }
+    
+    func setTitleLabel(title:String){
+        titleLabel = UILabel(frame:CGRectMake(60,11,200,16))
+        titleLabel.text = title
+        titleLabel.font = UIFont(name:"Arial",size:16)
+        titleLabel.textColor = UIColor.whiteColor()
+        titleLabel.shadowColor = UIColor(red:0,green:0,blue:0,alpha:0.75)
+        titleLabel.shadowOffset = CGSizeMake(0, 0.5)
+        titleLabel.textAlignment = NSTextAlignment.Center
+        headBg.addSubview(titleLabel)
+    }
+    
+    func setBackBtn(controller:UIViewController){
+        backBtn = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
+        backBtn.frame = CGRectMake(15, 31, 22, 16)
+        backBtn.setImage(UIImage(named:"headBackBtn"), forState: UIControlState.Normal)
+        backBtn.addTarget(controller,action:"goBackAction:",forControlEvents:.TouchUpInside);
+        controller.view.addSubview(backBtn)
+    }
+}

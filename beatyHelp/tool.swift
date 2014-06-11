@@ -26,7 +26,7 @@ func creatRoundImage(view:UIView,frame:CGRect,name:String,border:Float)->UIImage
     //是否设置边框以及是否可见
     imageView.layer.masksToBounds = true
     //设置边框的宽度
-    imageView.layer.borderWidth = border
+    imageView.layer.borderWidth = CGFloat(border)
     //设置边框的颜色
     imageView.layer.borderColor = UIColor(white: 1, alpha: 1).CGColor
     //设置边框圆角的幅度为宽度的一半，由此变成圆形

@@ -40,6 +40,8 @@
 		A32D8D4D1946B12E00A03EB7 /* userList01@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A32D8D311946B12E00A03EB7 /* userList01@2x.jpg */; };
 		A32D8D4E1946B12E00A03EB7 /* userList02@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A32D8D321946B12E00A03EB7 /* userList02@2x.jpg */; };
 		A32D8D4F1946B12E00A03EB7 /* userList03@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A32D8D331946B12E00A03EB7 /* userList03@2x.jpg */; };
+		A33AFF64194841F4006A4839 /* DetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33AFF63194841F4006A4839 /* DetailsController.swift */; };
+		A33AFF661948424D006A4839 /* detailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33AFF651948424D006A4839 /* detailView.swift */; };
 		A39CCF3A1943FEEE006D061A /* obTool.m in Sources */ = {isa = PBXBuildFile; fileRef = A39CCF391943FEEE006D061A /* obTool.m */; };
 		A39CCF3E19454EAB006D061A /* footButtonAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39CCF3D19454EAB006D061A /* footButtonAction.swift */; };
 		A39CCF4019455975006D061A /* ManageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39CCF3F19455975006D061A /* ManageController.swift */; };
@@ -97,6 +99,8 @@
 		A32D8D311946B12E00A03EB7 /* userList01@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "userList01@2x.jpg"; sourceTree = "<group>"; };
 		A32D8D321946B12E00A03EB7 /* userList02@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "userList02@2x.jpg"; sourceTree = "<group>"; };
 		A32D8D331946B12E00A03EB7 /* userList03@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "userList03@2x.jpg"; sourceTree = "<group>"; };
+		A33AFF63194841F4006A4839 /* DetailsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsController.swift; sourceTree = "<group>"; };
+		A33AFF651948424D006A4839 /* detailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = detailView.swift; sourceTree = "<group>"; };
 		A39CCF321943FDF2006D061A /* beatyHelp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "beatyHelp-Bridging-Header.h"; sourceTree = "<group>"; };
 		A39CCF391943FEEE006D061A /* obTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = obTool.m; sourceTree = "<group>"; };
 		A39CCF3B1943FEFB006D061A /* obTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = obTool.h; sourceTree = "<group>"; };
@@ -194,6 +198,7 @@
 				A3F492571941B37D0067A74F /* ViewController.swift */,
 				A39CCF3F19455975006D061A /* ManageController.swift */,
 				A31C38B7194597F700A3713D /* MyDataController.swift */,
+				A33AFF63194841F4006A4839 /* DetailsController.swift */,
 			);
 			name = controller;
 			sourceTree = "<group>";
@@ -213,6 +218,7 @@
 				A3E6715E1941CF9700DE0D03 /* mainView.swift */,
 				A31C38B91945985B00A3713D /* myDataView.swift */,
 				A31C38BC1945A08700A3713D /* manageView.swift */,
+				A33AFF651948424D006A4839 /* detailView.swift */,
 			);
 			name = view;
 			sourceTree = "<group>";
@@ -404,6 +410,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A33AFF64194841F4006A4839 /* DetailsController.swift in Sources */,
 				A3E6715F1941CF9700DE0D03 /* mainView.swift in Sources */,
 				A31C38B8194597F700A3713D /* MyDataController.swift in Sources */,
 				A3F492581941B37D0067A74F /* ViewController.swift in Sources */,
@@ -412,6 +419,7 @@
 				A3E671631941FB9900DE0D03 /* baseView.swift in Sources */,
 				A31C38BD1945A08700A3713D /* manageView.swift in Sources */,
 				A32D8D141946B10C00A03EB7 /* MathSum.m in Sources */,
+				A33AFF661948424D006A4839 /* detailView.swift in Sources */,
 				A3F492561941B37D0067A74F /* AppDelegate.swift in Sources */,
 				A39CCF4019455975006D061A /* ManageController.swift in Sources */,
 				A39CCF3A1943FEEE006D061A /* obTool.m in Sources */,
@@ -522,10 +530,12 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = beatyHelp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "beatyHelp/beatyHelp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -536,9 +546,11 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = beatyHelp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "beatyHelp/beatyHelp-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

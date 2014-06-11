@@ -12,7 +12,7 @@ import UIKit
 class ManageController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        manageViewDraw(self)
+        ManageViewDraw(_controller: self)
     }
     
     override func didReceiveMemoryWarning() {

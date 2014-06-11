@@ -11,7 +11,7 @@ import UIKit
 
 func mainViewDraw(controller:UIViewController){
     // 为controller添加baseView
-    getUIBaseView(controller)
+    GetUIBaseView(_controller: controller)
     getMainViewTop(controller,1)
     getMainViewMiddle(controller)
     getFootBar(controller,1)

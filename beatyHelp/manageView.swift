@@ -9,8 +9,9 @@
 import Foundation
 import UIKit
 
-func manageViewDraw(controller:UIViewController){
-    // 为controller添加baseView
-    getUIBaseView(controller)
-    getFootBar(controller,2)
+class ManageViewDraw{
+    init(_controller: UIViewController){
+        GetUIBaseView(_controller: _controller)
+        getFootBar(_controller,2)
+    }
 }

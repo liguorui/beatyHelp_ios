@@ -59,6 +59,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // UITableViewDelegate Methods
     func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!)
     {
+        // 跳转到详情内页
+        var detailsCon = DetailsController()
+        self.presentModalViewController(detailsCon, animated:false)
         self.indexTable!.deselectRowAtIndexPath(indexPath, animated: false)
     }
     
