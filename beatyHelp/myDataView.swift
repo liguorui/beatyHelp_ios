@@ -10,57 +10,59 @@ import Foundation
 import UIKit
 import QuartzCore
 
-
-func myDataViewDraw(controller:UIViewController){
+class MyDataViewDraw{
     var scrollView:UIScrollView! //创建滚动并设置尺寸
     
-    scrollView = {
-        () -> UIScrollView in
+    init(_controller: UIViewController){
+        getScrollView(_controller)
+        GetUIBaseView(_controller: _controller)
+        GetMainViewTop(_controller: _controller,_pageNum: 2)
+        GetMyDataMiddle(_scrollView: scrollView)
+        GetMiddleList(_scrollView: scrollView)
+        GetMydataBtn(_scrollView: scrollView)
+        GetFootBar(_controller: _controller, _index: 3)
+    }
+    
+    func getScrollView(controller: UIViewController){
         scrollView = UIScrollView(frame:CGRectMake(0, 128, 320, 317))
         // 设置可滚动的区域
         scrollView.contentSize = CGSizeMake(320, 335)
         controller.view.addSubview(scrollView)
-        return scrollView
-    }()
-    
-    // 为controller添加baseView
-    GetUIBaseView(_controller: controller)
-    getMainViewTop(controller,2)
-    getMyDataMiddle(scrollView)
-    getMiddleList(scrollView)
-    getBtn(scrollView)
-    getFootBar(controller,3)
+    }
 }
 
-func getMyDataMiddle(scrollView:UIScrollView){
+class GetMyDataMiddle{
     var middleValueBg:UIView! // 创建框体并设置尺寸
     var leftValueBg:UIView! // 创建左边背景图片并设置尺寸
     var leftLabelValue:UILabel! // 左边的值
     var leftLabelName:UILabel! // 左边的名称
     var rightValueBg:UIView! // 创建右边背景图片并设置尺寸
-    var rightLabelArray:UILabel[] // 右边的值
+    var rightLabelArray:UILabel[] = [] // 右边的值
+    let ListNum = 4
+    let middleValueValue = getDictionary("myData").objectForKey("middleValue").objectForKey("middleValueValue") as NSArray
+    let middleValueName = getDictionary("myData").objectForKey("middleValue").objectForKey("middleValueName") as NSArray
+    let rightcolorArray:UIColor[] = [UIColor.whiteColor(), getColorFromDictionary("blue"), getColorFromDictionary("grey9b"), getColorFromDictionary("green"), getColorFromDictionary("red")]
     
-    var ListNum = 4
-    var middleValueValue = getDictionary("myData").objectForKey("middleValue").objectForKey("middleValueValue") as NSArray
-    var middleValueName = getDictionary("myData").objectForKey("middleValue").objectForKey("middleValueName") as NSArray
-    var rightcolorArray:UIColor[] = [UIColor.whiteColor(), getColorFromDictionary("blue"), getColorFromDictionary("grey9b"), getColorFromDictionary("green"), getColorFromDictionary("red")]
+    init(_scrollView:UIScrollView){
+        getMiddleValueBg(_scrollView)
+        getLeftValueBg()
+        getLeftLabelValue()
+        getLeftLabelName()
+        getRightValueBg()
+        getRightLabelArray()
+    }
     
-    //创建框体并设置尺寸
-    middleValueBg = {
-        () -> UIView in
+    func getMiddleValueBg(_scrollView: UIScrollView){
         middleValueBg = UIView(frame:CGRectMake(10, 10, 300, 64))
         var layer = middleValueBg.layer
         layer.shadowOffset = CGSizeMake(0, 1)
         layer.shadowRadius = 5
         layer.shadowColor = UIColor.blackColor().CGColor
         layer.shadowOpacity = 0.05
-        scrollView.addSubview(middleValueBg)
-        return middleValueBg
-    }()
+        _scrollView.addSubview(middleValueBg)
+    }
     
-    //创建图片并设置尺寸
-    leftValueBg = {
-        () -> UIView in
+    func getLeftValueBg(){
         //创建图片并设置尺寸
         leftValueBg = UIView(frame:CGRectMake(0, 0, 64, 64))
         //读取实例的layer属性
@@ -74,12 +76,9 @@ func getMyDataMiddle(scrollView:UIScrollView){
         leftMaskLayer.path = leftMaskPath.CGPath
         leftValueBg.layer.mask = leftMaskLayer
         middleValueBg.addSubview(leftValueBg)
-        return leftValueBg
-    }()
+    }
     
-    // 左边的值
-    leftLabelValue = {
-        () -> UILabel in
+    func getLeftLabelValue(){
         leftLabelValue = UILabel(frame:CGRectMake(0, 12, 64, 24))
         leftLabelValue.text = toString(middleValueValue[0])
         leftLabelValue.font = UIFont(name:"Arial",size:25)
@@ -88,12 +87,9 @@ func getMyDataMiddle(scrollView:UIScrollView){
         leftLabelValue.textColor = rightcolorArray[0]
         leftLabelValue.textAlignment = NSTextAlignment.Center
         leftValueBg.addSubview(leftLabelValue)
-        return leftLabelValue
-    }()
+    }
     
-    // 左边的名称
-    leftLabelName = {
-        () -> UILabel in
+    func getLeftLabelName(){
         leftLabelName = UILabel(frame:CGRectMake(0, 37, 64, 24))
         leftLabelName.text = toString(middleValueName[0])
         leftLabelName.font = UIFont(name:"Arial",size:12)
@@ -102,11 +98,9 @@ func getMyDataMiddle(scrollView:UIScrollView){
         leftLabelName.textColor = rightcolorArray[0]
         leftLabelName.textAlignment = NSTextAlignment.Center
         leftValueBg.addSubview(leftLabelName)
-        return leftLabelName
-    }()
+    }
     
-    rightValueBg = {
-        () -> UIView in
+    func getRightValueBg(){
         //创建图片并设置尺寸
         rightValueBg = UIView(frame:CGRectMake(64, 0, 236, 64))
         //读取实例的layer属性
@@ -120,12 +114,9 @@ func getMyDataMiddle(scrollView:UIScrollView){
         rightMaskLayer.path = rightMaskPath.CGPath
         rightValueBg.layer.mask = rightMaskLayer
         middleValueBg.addSubview(rightValueBg)
-        return rightValueBg
-    }()
+    }
     
-    rightLabelArray = {
-        () -> UILabel[] in
-        var rightLabelArray:UILabel[] = []
+    func getRightLabelArray(){
         for i in 0..ListNum{
             var rightLabelValue = UILabel(frame:CGRectMake(CGFloat(i*59), 12, 59, 24))
             rightLabelValue.text = toString(middleValueValue[i+1])
@@ -148,23 +139,27 @@ func getMyDataMiddle(scrollView:UIScrollView){
                 rightValueBg.addSubview(rightLine)
             }
         }
-        return rightLabelArray
-    }()
+    }
 }
 
-
-func getMiddleList(scrollView:UIScrollView){
+class GetMiddleList{
     var middleListBg:UIView!  //创建框体并设置尺寸
     var topValueBg:UIView! //创建图片并设置尺寸
     var topLabelTitle:UILabel! //创建顶部title
     var topLabelMore:UILabel! //创建顶部more
-    var middleValueBgArray:UIView[]
+    var middleValueBgArray:UIView[] = []
+    let ListNum = 4
     
-    var ListNum = 4
+    init(_scrollView: UIScrollView){
+        getMiddleListBg(_scrollView)
+        getTopValueBg()
+        getTopLabelTitle()
+        getTopLabelMore()
+        getMiddleValueBgArray()
+    }
     
-     //创建框体并设置尺寸
-    middleListBg = {
-        () -> UIView in
+    //创建框体并设置尺寸
+    func getMiddleListBg(scrollView: UIScrollView){
         middleListBg = UIView(frame: CGRectMake(10, 86, 300, CGFloat(28*ListNum)))
         var layer = middleListBg.layer
         layer.shadowOffset = CGSizeMake(0, 1)
@@ -172,12 +167,9 @@ func getMiddleList(scrollView:UIScrollView){
         layer.shadowColor = UIColor.blackColor().CGColor
         layer.shadowOpacity = 0.05
         scrollView.addSubview(middleListBg)
-        return middleListBg
-    }()
+    }
     
-    //创建图片并设置尺寸
-    topValueBg = {
-        () -> UIView in
+    func getTopValueBg(){
         topValueBg = UIView(frame:CGRectMake(0, 0, 300, 28))
         var topLayer = topValueBg.layer
         topLayer.backgroundColor = getColorFromDictionary("red").CGColor
@@ -188,12 +180,9 @@ func getMiddleList(scrollView:UIScrollView){
         topMaskLayer.path = topMaskPath.CGPath
         topValueBg.layer.mask = topMaskLayer
         middleListBg.addSubview(topValueBg)
-        return topValueBg
-    }()
+    }
     
-     //创建顶部title
-    topLabelTitle = {
-        () -> UILabel in
+    func getTopLabelTitle(){
         topLabelTitle = UILabel(frame: CGRectMake(120, 8, 80, 12))
         topLabelTitle.text = "好人点:(452)"
         topLabelTitle.font = UIFont(name:"Arial",size:12)
@@ -201,15 +190,13 @@ func getMiddleList(scrollView:UIScrollView){
         topLabelTitle.shadowOffset = CGSizeMake(0, 0.5)
         topLabelTitle.textColor = UIColor.whiteColor()
         topValueBg.addSubview(topLabelTitle)
-        return topLabelTitle
-    }()
+    }
     
-    topLabelMore = {
-        () -> UILabel in
+    func getTopLabelMore(){
         topLabelMore = UILabel(frame: CGRectMake(260, 8, 30, 12))
         var content = NSMutableAttributedString(string: String("更多"))
         var contentRange = NSRange(location: 0, length: content.length)
-//        var getStyle = NSUnderlineStyle.StyleSingle
+        //        var getStyle = NSUnderlineStyle.StyleSingle
         var getValue = NSNumber(integer:2)
         content.addAttribute(NSUnderlineStyleAttributeName, value: getValue, range: contentRange)
         topLabelMore.attributedText = content
@@ -218,12 +205,9 @@ func getMiddleList(scrollView:UIScrollView){
         topLabelMore.shadowOffset = CGSizeMake(0, 0.5)
         topLabelMore.textColor = UIColor.whiteColor()
         topValueBg.addSubview(topLabelMore)
-        return topLabelMore
-    }()
+    }
     
-    middleValueBgArray = {
-        () -> UIView[] in
-        var middleValueBgArray: UIView[] = []
+    func getMiddleValueBgArray(){
         for i in 1..ListNum {
             var middleValueBg = UIView(frame:CGRectMake( 0, CGFloat(28*i), 300, 28))
             var middleLayer = middleValueBg.layer
@@ -242,34 +226,22 @@ func getMiddleList(scrollView:UIScrollView){
             middleValueBgArray.insert(middleValueBg, atIndex: i-1)
             middleListBg.addSubview(middleValueBg)
         }
-        return middleValueBgArray
-    }()
+    }
 }
 
-
-func getBtn(scrollView:UIScrollView){
-    var btnArray: UIButton[]
-    btnArray = {
-        () -> UIButton[] in
-        var btnArray: UIButton[] = []
+class GetMydataBtn{
+    var btnArray: UIButton[] = []
+    
+    init(_scrollView: UIScrollView){
         var btnNum = 3
         var btnNameArray = ["历史消息","设  置","登  出"]
         for i in 0..btnNum{
-            var button = UIButton(frame:CGRectMake(7, CGFloat(205+40*i), 306, 36))
-            var img:UIImage
-            if i == btnNum-1{
-                img = UIImage(named: "blackBtn")
-            }else{
-                img = UIImage(named: "blueBtn")
-            }
+            var img = i == btnNum-1 ? UIImage(named: "blackBtn") : UIImage(named: "blueBtn")
             img = img.stretchableImageWithLeftCapWidth(8, topCapHeight:0)
             img.accessibilityFrame = CGRectMake(0, 0, 304, 36)
-            button.setBackgroundImage(img, forState: UIControlState.Normal)
-            button.setTitle(btnNameArray[i], forState: UIControlState.Normal)
-            button.titleLabel.font = UIFont(name:"Arial",size:12)
+            var button = GetlargeBtn(_frame : CGRectMake(7, CGFloat(205+40*i), 306, 36), _img : img, _title : btnNameArray[i]).button
             btnArray.insert(button, atIndex: i)
-            scrollView.addSubview(button)
+            _scrollView.addSubview(button)
         }
-        return btnArray
-        }()
+    }
 }

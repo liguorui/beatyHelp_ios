@@ -15,7 +15,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
         // mainView 界面绘制
         setIndexTable()
-        mainViewDraw(self)
+        MainViewDraw(_controller: self)
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,7 +53,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     //创建一个单元格
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell!
     {
-        return getTableView(tableView,cellForRowAtIndexPath:indexPath)
+        return GetTableView(tableView: tableView,cellForRowAtIndexPath:indexPath).cell
     }
     
     // UITableViewDelegate Methods

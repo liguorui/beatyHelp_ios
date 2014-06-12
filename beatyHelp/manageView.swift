@@ -12,6 +12,6 @@ import UIKit
 class ManageViewDraw{
     init(_controller: UIViewController){
         GetUIBaseView(_controller: _controller)
-        getFootBar(_controller,2)
+        GetFootBar(_controller: _controller, _index: 2)
     }
 }

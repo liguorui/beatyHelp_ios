@@ -45,7 +45,7 @@ class GetDetailTop{
     }
     
     func setTimeLabel(){
-        timeLabel = UILabel(frame:CGRectMake(198, 14, 160, 20))
+        timeLabel = UILabel(frame:CGRectMake(198, 7, 160, 20))
         timeLabel.text = "至 2014-05-19  17:00"
         timeLabel.font = UIFont(name:"Arial",size:10)
         timeLabel.textColor = UIColor(red: 153/255, green: 153/255, blue: 153/255, alpha: 1)

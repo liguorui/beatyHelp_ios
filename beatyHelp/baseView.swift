@@ -21,58 +21,40 @@ class GetUIBaseView{
     }
 }
 
-func getFootBar(controller:UIViewController,index:Int){
+
+class GetFootBar{
     var footBg:UIImageView! // 底部框体包括背景图
-    var footBtn1:UIButton!
-    var footBtn2:UIButton!
-    var footBtn3:UIButton!
+    var footBtnArray:UIButton[] = []
     
-    footBg = {
-        () -> UIImageView in
+    init(_controller:UIViewController, _index:Int){
+        getFootBg(_controller)
+        getFootBtnArray(_controller, index: _index)
+    }
+    
+    func getFootBg(controller:UIViewController){
         // 创建框体并设置尺寸
         footBg = UIImageView(frame:CGRectMake(0,UIScreen.mainScreen().applicationFrame.height+20-39,320,39))
         //根据图片名，确定图片引用
         footBg.image = UIImage(named:"footLine")
         // 将圆图添加到UIView上
         controller.view.addSubview(footBg)
-        return footBg
-        }()
+    }
     
-    footBtn1 = {
-        () -> UIButton in
-        footBtn1 = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
-        footBtn1.frame = CGRectMake(0, UIScreen.mainScreen().applicationFrame.height+20-39, 111, 39)
-        footBtn1.setImage(UIImage(named:(index==1 ? "footBtn01":"footBtn01x")), forState: UIControlState.Normal)
-        if index != 1{
-            footBtn1.addTarget(controller,action:"footBtn1Action:",forControlEvents:.TouchUpInside);
+    func getFootBtnArray(controller:UIViewController, index:Int){
+        var btnWidth = [111, 104, 103]
+        var btnX = [0, 112, 217]
+        
+        for i in 0..3{
+            var footBtn = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
+            footBtn.frame = CGRectMake(CGFloat(btnX[i]), UIScreen.mainScreen().applicationFrame.height+20-39, CGFloat(btnWidth[i]), 39)
+            footBtn.setImage(UIImage(named:(index==i+1 ? "footBtn0\(i+1)" : "footBtn0\(i+1)x" )), forState: UIControlState.Normal)
+            if index != i+1 {
+                footBtn.addTarget(controller,action:Selector("footBtn\(i+1)Action:"),forControlEvents:.TouchUpInside);
+            }
+            footBtnArray.insert(footBtn, atIndex: i)
+            controller.view.addSubview(footBtn)
         }
-        controller.view.addSubview(footBtn1)
-        return footBtn1
-        }()
-    
-    footBtn2 = {
-        () -> UIButton in
-        footBtn2 = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
-        footBtn2.frame = CGRectMake(112, UIScreen.mainScreen().applicationFrame.height+20-39, 104, 39)
-        footBtn2.setImage(UIImage(named:(index==2 ? "footBtn02":"footBtn02x")), forState: UIControlState.Normal)
-        if index != 2{
-            footBtn2.addTarget(controller,action:"footBtn2Action:",forControlEvents:.TouchUpInside);
-        }
-        controller.view.addSubview(footBtn2)
-        return footBtn2
-        }()
-    
-    footBtn3 = {
-        () -> UIButton in
-        footBtn3 = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
-        footBtn3.frame = CGRectMake(217, UIScreen.mainScreen().applicationFrame.height+20-39, 103, 39)
-        footBtn3.setImage(UIImage(named:(index==3 ? "footBtn03":"footBtn03x")), forState: UIControlState.Normal)
-        if index != 3{
-            footBtn3.addTarget(controller,action:"footBtn3Action:",forControlEvents:.TouchUpInside);
-        }
-        controller.view.addSubview(footBtn3)
-        return footBtn3
-        }()
+    }
 }
 
 class GetHeadBar{
@@ -112,5 +94,17 @@ class GetHeadBar{
         backBtn.setImage(UIImage(named:"headBackBtn"), forState: UIControlState.Normal)
         backBtn.addTarget(controller,action:"goBackAction:",forControlEvents:.TouchUpInside);
         controller.view.addSubview(backBtn)
+    }
+}
+
+
+class GetlargeBtn{
+    var button:UIButton!
+    
+    init(_frame : CGRect, _img : UIImage, _title : String){
+        button = UIButton(frame:_frame)
+        button.setBackgroundImage(_img, forState: UIControlState.Normal)
+        button.setTitle(_title, forState: UIControlState.Normal)
+        button.titleLabel.font = UIFont(name:"Arial",size:12)
     }
 }

@@ -12,7 +12,7 @@ import UIKit
 class MyDataController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        myDataViewDraw(self)
+        MyDataViewDraw(_controller: self)
     }
     
     override func didReceiveMemoryWarning() {
